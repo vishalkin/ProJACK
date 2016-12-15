@@ -1,88 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:layout_marginBottom="10dp">
 
 
-        <!--  ListRow Left sied Thumbnail image -->
-        <LinearLayout android:id="@+id/thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dip"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="5dip">
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
 
-            <TextView
-                android:id="@+id/project_id"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:text="@string/app_name"/>
+        <TextView
+            android:text="T"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/project_type"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:background="@drawable/circle_shape"
+            android:textSize="45dp" />
 
+    </LinearLayout>
 
-        </LinearLayout>
+    <!-- Title Of Project-->
 
-        <!-- Title Of Project-->
+    <LinearLayout
+        android:id="@+id/data"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="1dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail" >
+
         <TextView
             android:id="@+id/project_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/thumbnail"
-            android:layout_toRightOf="@+id/thumbnail"
-            android:text="Rihanna Love the way lie"
+            android:text="Title of Project"
             android:textColor="#040404"
             android:typeface="sans"
-            android:textSize="15dip"
-            android:textStyle="bold"/>
-
-        <!-- Project Type -->
-        <TextView
-            android:id="@+id/project_type"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/project_title"
-            android:textColor="#343434"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="10dip"
-            android:layout_marginTop="1dip"
+            android:textSize="20dip"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/thumbnail"
-            android:text="Just gona stand there and ..." />
+            android:layout_toEndOf="@+id/thumbnail"
+            android:layout_weight="1" />
 
-        <!-- Rightend Duration -->
+
+
         <TextView
-            android:id="@+id/start_date"
+            android:id="@+id/project_desc"
+            android:text="Description of the Project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/project_title"
+            android:maxLines="4"
+            android:layout_below="@+id/project_title"
+            android:layout_weight="1" />
 
-            android:gravity="right"
-            android:text="5:45"
-            android:layout_marginRight="5dip"
-            android:textSize="10dip"
-            android:textColor="#10bcc9"
-            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:orientation="horizontal">
 
-    <!-- Rightend Duration -->
-    <TextView
-        android:id="@+id/end_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/project_type"
-        android:gravity="right"
-        android:text="5:45"
-        android:layout_below="@id/start_date"
-        android:layout_marginRight="5dip"
-        android:textSize="10dip"
-        android:textColor="#10bcc9"
-        android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <TextView
+                    android:text="Start:"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stDate"
+                    />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="project_desc"
-        android:id="@+id/project_desc"
-        android:layout_below="@+id/project_type"
-        android:layout_toEndOf="@+id/thumbnail" />
+                <TextView
+                    android:text="2016/11/12"
+                    android:paddingLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/start_date"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" android:layout_marginLeft="10dp">
+                <TextView
+                    android:text="End:"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/enDate"
+                    />
+
+                <TextView
+                    android:text="2016/14/12"
+                    android:paddingLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/end_date"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="10"
+                    android:id="@+id/project_id"
+                    android:visibility="gone"
+                    android:layout_gravity="right"
+
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>

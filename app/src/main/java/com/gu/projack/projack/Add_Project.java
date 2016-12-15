@@ -5,9 +5,13 @@ import android.app.Dialog;
 import java.util.Calendar;
 
 
+import android.content.Intent;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -56,14 +60,41 @@ public class Add_Project extends AppCompatActivity{
         btnAddProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.addProject(new SqlProjects(editName.getText().toString(),editDesc.getText().toString(),editType.getSelectedItem().toString(),tvStartDate.getText().toString(),tvEndDate.getText().toString()));
+                if (!(TextUtils.isEmpty(editName.getText().toString())) && !(TextUtils.isEmpty(editDesc.getText().toString())) && !(tvStartDate.getText().equals("")) && !(tvEndDate.getText().equals(""))) {
 
-                editName.setText("");
-                editDesc.setText("");
-                tvStartDate.setText("");
-                tvEndDate.setText("");
+                    db.addProject(new SqlProjects(editName.getText().toString(), editDesc.getText().toString(), editType.getSelectedItem().toString(), tvStartDate.getText().toString(), tvEndDate.getText().toString()));
 
-                Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_SHORT).show();
+                    editName.setText("");
+                    editDesc.setText("");
+                    tvStartDate.setText("");
+                    tvEndDate.setText("");
+
+                    Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+                else {
+
+                    if(TextUtils.isEmpty(editName.getText().toString())){
+                        editName.setError("Enter Project Name");
+                    }
+
+
+                    if(TextUtils.isEmpty(editDesc.getText().toString())){
+                        editDesc.setError("Enter Description");
+                    }
+
+
+                    if(tvStartDate.getText().equals(""))
+                    {
+                        tvStartDate.setError("Select Start Date");
+                    }
+
+
+                    if(tvEndDate.getText().equals(""))
+                    {
+                        tvEndDate.setError("Select End Date");
+                    }
+                }
             }
         });
     }
@@ -131,5 +162,12 @@ public class Add_Project extends AppCompatActivity{
                     tvEndDate.setText(date2);
                 }
             };
+
+
+    @Override
+    public void onBackPressed() {
+        this.startActivity(new Intent(Add_Project.this, MainActivity.class));
+        return;
+    }
 
   }

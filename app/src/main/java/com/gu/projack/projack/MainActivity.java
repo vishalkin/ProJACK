@@ -16,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.database.Cursor;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -26,6 +29,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    FloatingActionButton fab, fabAdd, fabImport;
+    Animation fabOpen, fabClose,fabRotateClock, fabRotateAntiClock;
+    boolean isOpen = false;
 
     private SimpleCursorAdapter dataAdapter;
     SwipeRefreshLayout swipreRefresh;
@@ -51,8 +58,43 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
+        fabImport = (FloatingActionButton) findViewById(R.id.fab_import);
+
+        fabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        fabRotateClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        fabRotateAntiClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
+
         fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view){
+                if(isOpen){
+                    fabAdd.startAnimation(fabClose);
+                    fabImport.startAnimation(fabClose);
+                    fab.startAnimation(fabRotateAntiClock);
+
+                    fabAdd.setClickable(false);
+                    fabImport.setClickable(false);
+                    isOpen = false;
+
+                }
+
+                else {
+                    fabAdd.startAnimation(fabOpen);
+                    fabImport.startAnimation(fabOpen);
+                    fab.startAnimation(fabRotateClock);
+
+                    fabAdd.setClickable(true);
+                    fabImport.setClickable(true);
+                    isOpen = true;
+                }
+            }
+        });
+
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ///Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -71,6 +113,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     private void displayListView() {
@@ -119,13 +162,20 @@ public class MainActivity extends AppCompatActivity
                 Cursor cursor = (Cursor) listView.getItemAtPosition(position);
 
                 // Get the state's capital from this row in the database.
-                String countryCode =
-                        cursor.getString(cursor.getColumnIndexOrThrow("code"));
-                Toast.makeText(getApplicationContext(),
-                        countryCode, Toast.LENGTH_SHORT).show();
+                String projectId =
+                        cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+                //Toast.makeText(getApplicationContext(),
+                  //      projectId, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, SwipeActivity.class);
+
+               // intent.putExtra("PROJECT_ID", projectId);
+                startActivity(intent);
             }
         });
     }
+
+
 
 
     @Override
@@ -179,6 +229,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
