@@ -8,10 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gu.projack.projack.SwipeActivity$PlaceholderFragment">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tab 2"/>
+    <ListView
+        android:id="@+id/listDoing"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/bg_color"
+        />
 
 </RelativeLayout>

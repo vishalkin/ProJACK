@@ -8,4 +8,7 @@
     <color name="fab_add">#4CAF50</color>
     <color name="fab_import">#2196F3</color>
 
+    <color name="pressed_color">#2196F3</color>
+    <color name="default_color">#FFF</color>
+
 </resources>

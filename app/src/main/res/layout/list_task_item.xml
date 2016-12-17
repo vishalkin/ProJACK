@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+
+
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+
+        <TextView
+            android:text="T"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/story_point"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:background="@drawable/square_shape_green"
+            android:textSize="45dp" />
+
+    </LinearLayout>
+
+    <!-- Title Of Project-->
+
+    <LinearLayout
+        android:id="@+id/data"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="1dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail" >
+
+
+    <LinearLayout
+        android:id="@+id/top_title"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="1dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title of Project"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="20dip"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_toEndOf="@+id/thumbnail"
+            android:layout_weight="0.6" />
+
+
+        <TextView
+            android:id="@+id/task_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="11"
+                        android:layout_weight="0.2" />
+
+        <TextView
+            android:id="@+id/priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="11"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:layout_marginRight="0dp"
+            android:layout_weight="0.2" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/task_desc"
+            android:text="Description of the Project Description of the Project "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:layout_below="@+id/project_title"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

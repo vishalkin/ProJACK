@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,17 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.database.Cursor;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
-import java.util.List;
+import android.view.View.OnTouchListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,8 +32,15 @@ public class MainActivity extends AppCompatActivity
     Animation fabOpen, fabClose,fabRotateClock, fabRotateAntiClock;
     boolean isOpen = false;
 
+
     private SimpleCursorAdapter dataAdapter;
     SwipeRefreshLayout swipreRefresh;
+
+    float historicX = Float.NaN, historicY = Float.NaN;
+    static final int DELTA = 50;
+    enum Direction {LEFT, RIGHT;}
+
+    int mSelectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 swipreRefresh.setRefreshing(true);
-                displayListView();
+                dataAdapter.notifyDataSetChanged();
 
                 swipreRefresh.setRefreshing(false);
             }
@@ -158,6 +163,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> listView, View view,
                                     int position, long id) {
+
                 // Get the cursor, positioned to the corresponding row in the result set
                 Cursor cursor = (Cursor) listView.getItemAtPosition(position);
 
@@ -171,6 +177,38 @@ public class MainActivity extends AppCompatActivity
 
                // intent.putExtra("PROJECT_ID", projectId);
                 startActivity(intent);
+            }
+        });
+
+        listView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            Toast.makeText(getApplicationContext(), "SWIPE LEFT",Toast.LENGTH_SHORT).show();
+                            MainActivity.this.overridePendingTransition(R.anim.slide_in_left,
+                                    R.anim.slide_out_left);
+                            return true;
+                        }
+                        else if (event.getX() - historicX > DELTA) {
+                            Toast.makeText(getApplicationContext(), "SWIPE RIGHT",Toast.LENGTH_SHORT).show();
+                            MainActivity.this.overridePendingTransition(R.anim.slide_in_right,
+                                    R.anim.slide_out_right);
+                            return true;
+                        }
+                        break;
+
+                    default:
+                        return false;
+                }
+                return false;
             }
         });
     }
@@ -235,4 +273,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

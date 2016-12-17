@@ -21,7 +21,7 @@
             android:textStyle="normal|bold"
             android:textAlignment="center"
             android:textColor="#fff"
-            android:background="@drawable/circle_shape"
+            android:background="@drawable/circle_shape_pink"
             android:textSize="45dp" />
 
     </LinearLayout>
